@@ -1,6 +1,8 @@
 var GpxFile = require('./lib/gpxfile'),
     GpxRoute = require('./lib/gpxroute'),
-    GpxPoint = require('./lib/gpxpoint');
+    GpxPoint = require('./lib/gpxpoint'),
+    GpxTrack = require('./lib/gpxtrack'),
+    GpxTrackSegment = require('./lib/gpxtracksegment');
 
 var gpx = new GpxFile({
     name : 'My test file',
@@ -9,19 +11,30 @@ var gpx = new GpxFile({
 var rte = new GpxRoute({
     name : '<rte>'
 });
+var trk = new GpxTrack({
+
+});
+var seg = new GpxTrackSegment();
+
 
 gpx.add(rte);
 
-rte.add(new GpxPoint({
+gpx.add(trk);
+
+trk.add(seg);
+
+seg.add(new GpxPoint({
     longitude : 2.4306393,
     latitude : 52.49526,
     name : 'point'
 }));
-rte.add(new GpxPoint({
+
+seg.add(new GpxPoint({
     longitude : 2.4306393,
     latitude : 52.49526,
     name : 'point'
 }));
+
 rte.add(new GpxPoint({
     longitude : 2.4306393,
     latitude : 52.49526,
