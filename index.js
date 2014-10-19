@@ -8,38 +8,32 @@ var gpx = new GpxFile({
     name : 'My test file',
     time : new Date()
 });
-var rte = new GpxRoute({
+
+var rte = gpx.add(GpxRoute, {
     name : '<rte>'
 });
-var trk = new GpxTrack({
 
+var trk = gpx.add(GpxTrack);
+
+var seg = trk.add(GpxTrackSegment);
+
+seg.add(GpxPoint, {
+    longitude : 2.4306393,
+    latitude : 52.49526,
+    name : 'point'
 });
-var seg = new GpxTrackSegment();
 
-
-gpx.add(rte);
-
-gpx.add(trk);
-
-trk.add(seg);
-
-seg.add(new GpxPoint({
+seg.add(GpxPoint, {
     longitude : 2.4306393,
     latitude : 52.49526,
     name : 'point'
-}));
+});
 
-seg.add(new GpxPoint({
+rte.add(GpxPoint, {
     longitude : 2.4306393,
     latitude : 52.49526,
     name : 'point'
-}));
-
-rte.add(new GpxPoint({
-    longitude : 2.4306393,
-    latitude : 52.49526,
-    name : 'point'
-}));
+});
 
 console.log(gpx.getXml());
 
