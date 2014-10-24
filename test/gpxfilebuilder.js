@@ -21,7 +21,7 @@ describe('GpxFileBuilder', function() {
         expect(xml).to.conform('./test/schema/gpx1.1.xsd');
     });
 
-    it('should produce a valid gpx for an file with a few waypoints', function() {
+    it('should produce a valid gpx for a file with a few waypoints', function() {
         var xml = (new GpxFileBuilder()).addWayPoint({
             latitude : 50,
             longitude : 4.898
