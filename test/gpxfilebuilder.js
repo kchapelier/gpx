@@ -1,19 +1,15 @@
 var GpxFileBuilder = require('./../').GpxFileBuilder,
     parse = require('xml-parser'),
-    xsd = require('libxml-xsd'),
-    expect = require('chai').use(require('./plugin/chai-xsd')).expect,
-    fs = require('fs');
-
-var schema = xsd.parse(fs.readFileSync('./test/schema/gpx1.1.xsd', { encoding : 'utf8' }));
+    expect = require('chai').use(require('./plugin/chai-xsd')).expect;
 
 describe('GpxFileBuilder', function() {
-    it('empty file validates against the xsd', function() {
+    it('should produce a valid gpx for an empty file', function() {
         var xml = (new GpxFileBuilder()).xml();
 
-        expect(xml).to.conform(schema);
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
     });
 
-    it('empty file with metadata validates against the xsd', function() {
+    it('should produce a valid gpx for an empty file with metadata', function() {
         var xml = (new GpxFileBuilder({
             name : 'Name',
             creator : 'GpxFileBuilder',
@@ -22,12 +18,10 @@ describe('GpxFileBuilder', function() {
             keywords : ['keyword1', 'keyword2']
         })).xml();
 
-        expect(xml).to.conform(schema);
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
     });
 
-
-
-    it('file with a few waypoints validates against the xsd', function() {
+    it('should produce a valid gpx for an file with a few waypoints', function() {
         var xml = (new GpxFileBuilder()).addWayPoint({
             latitude : 50,
             longitude : 4.898
@@ -41,40 +35,74 @@ describe('GpxFileBuilder', function() {
             elevation : 1.03
         }).xml();
 
-        console.log(xml);
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
+    });
 
-        expect(xml).to.conform(schema);
+    it('should produce a valid gpx for a file with an empty route', function() {
+        var xml = (new GpxFileBuilder()).addRoute().xml();
+
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
+    });
+
+    it('should produce a valid gpx for a file with a non-empty route', function() {
+        var xml = (new GpxFileBuilder()).addRoute(
+            {
+                name : 'route name'
+            },
+            [
+                {
+                    latitude : 50,
+                    longitude : 4.898
+                },
+                {
+                    latitude : 50,
+                    longitude : 4.898,
+                    name : 'waypoint alpha'
+                },
+                {
+                    latitude : 50,
+                    longitude : 4.898,
+                    elevation : 1.03
+                }
+            ]
+        ).xml();
+
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
+    });
+
+    it('should produce a valid gpx for a file with a route and several waypoints', function() {
+        var builder = new GpxFileBuilder();
+
+        var xml = builder.setFileInfo({
+                creator : 'GpxFileBuilder',
+                name : 'test file'
+            }).addWayPoint({
+                latitude : 50,
+                longitude : 4.898,
+                name : 'waypoint alpha',
+                elevation : 1.03
+            }).addWayPoint({
+                latitude : 49.4985,
+                longitude : 4.8939,
+                name : 'waypoint beta',
+                elevation : 1
+            }).addRoute(
+                {
+                    name : 'test route'
+                },
+                [
+                    {
+                        latitude : 50,
+                        longitude : 4.898
+                    },
+                    {
+                        latitude : 50,
+                        longitude : 4.898,
+                        elevation : 1.03
+                    }
+                ]
+            ).xml();
+
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
     });
 });
-
-/*
-console.log(
-    (new GpxFileBuilder())
-        .setFileInfo(
-        {
-            creator : 'xtrip',
-            name : 'fichier'
-        }
-    )
-        .addRoute(
-        {
-            name : 'route'
-        },
-        [
-            {
-                latitude : 50,
-                longitude : 5,
-                elevation : 0.0,
-                name : 'point 1'
-            },
-            {
-                latitude : 40,
-                longitude : 2,
-                elevation : 1.34,
-                name : 'point 2'
-            }
-        ]
-    )
-        .xml()
-);
-*/

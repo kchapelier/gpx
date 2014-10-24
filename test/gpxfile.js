@@ -1,10 +1,6 @@
 var GpxFile = require('./../').GpxFile,
     parse = require('xml-parser'),
-    xsd = require('libxml-xsd'),
-    expect = require('chai').use(require('./plugin/chai-xsd')).expect,
-    fs = require('fs');
-
-var schema = xsd.parse(fs.readFileSync('./test/schema/gpx1.1.xsd', { encoding : 'utf8' }));
+    expect = require('chai').use(require('./plugin/chai-xsd')).expect;
 
 describe('GpxFile', function() {
     it('has correct namespace and schema', function() {
@@ -20,6 +16,6 @@ describe('GpxFile', function() {
         var file = new GpxFile();
         var xml = file.getXml();
 
-        expect(xml).to.conform(schema);
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
     });
 });
