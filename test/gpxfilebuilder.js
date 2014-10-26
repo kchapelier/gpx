@@ -38,6 +38,68 @@ describe('GpxFileBuilder', function() {
         expect(xml).to.conform('./test/schema/gpx1.1.xsd');
     });
 
+    it('should produce a valid gpx for a file with an empty track', function() {
+        var xml = (new GpxFileBuilder()).addTrack().xml();
+
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
+    });
+
+    it('should produce a valid gpx for a file with a track and a single tracksegment', function() {
+        var xml = (new GpxFileBuilder()).addTrack(
+            {
+                name : 'test track'
+            },
+            [
+                {
+                    latitude : 50,
+                    longitude : 4.898
+                },
+                {
+                    latitude : 50,
+                    longitude : 4.898,
+                    name : 'waypoint alpha'
+                },
+                {
+                    latitude : 50,
+                    longitude : 4.898,
+                    elevation : 1.03
+                }
+            ]
+        ).xml();
+
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
+    });
+
+    it('should produce a valid gpx for a file with a track and several tracksegments', function() {
+        var xml = (new GpxFileBuilder()).addTrack(
+            {
+                name : 'test track'
+            },
+            [
+                [
+                    {
+                        latitude : 50,
+                        longitude : 4.898
+                    }
+                ],
+                [
+                    {
+                        latitude : 50,
+                        longitude : 4.898,
+                        name : 'waypoint alpha'
+                    },
+                    {
+                        latitude : 50,
+                        longitude : 4.898,
+                        elevation : 1.03
+                    }
+                ]
+            ]
+        ).xml();
+
+        expect(xml).to.conform('./test/schema/gpx1.1.xsd');
+    });
+
     it('should produce a valid gpx for a file with an empty route', function() {
         var xml = (new GpxFileBuilder()).addRoute().xml();
 
