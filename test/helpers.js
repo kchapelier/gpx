@@ -21,14 +21,3 @@ describe('helpers.encodeXml', function() {
         expect(helpers.encodeXml(Math.PI)).to.be.a('string');
     });
 });
-
-describe('helpers.xmlIndentation', function() {
-    it('should return the expected indentation (soft tabs, 2 spaces)', function() {
-        expect(helpers.xmlIndentation(0)).to.equal('');
-        expect(helpers.xmlIndentation(3)).to.equal('      ');
-    });
-
-    it('should ignore negative depth', function() {
-        expect(helpers.xmlIndentation(-1)).to.equal('');
-    });
-});
