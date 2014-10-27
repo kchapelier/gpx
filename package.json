@@ -10,6 +10,8 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^1.9.2",
+    "gulp": "^3.8.9",
+    "gulp-jscs": "^1.2.1",
     "libxml-xsd": "^0.2.0",
     "mocha": "^1.21.5",
     "xml-parser": "^1.2.0"

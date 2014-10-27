@@ -1,0 +1,12 @@
+{
+    "requireCurlyBraces" : true,
+    "requireSpaceAfterKeywords" : true,
+    "requireSpaceBeforeBlockStatements" : true,
+    "requireParenthesesAroundIIFE" : true,
+    "requireSpacesInConditionalExpression" : true,
+    "requireSpacesInFunctionExpression" : {
+        "beforeOpeningRoundBrace": true,
+        "beforeOpeningCurlyBrace": true
+    },
+    "excludeFiles": []
+}
