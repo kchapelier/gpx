@@ -8,5 +8,10 @@
         "beforeOpeningRoundBrace": true,
         "beforeOpeningCurlyBrace": true
     },
+    "disallowSpacesInCallExpression" : true,
+    "requireBlocksOnNewline" : true,
+    "disallowPaddingNewlinesInBlocks" : true,
+    "requirePaddingNewLinesInObjects" : true,
+    "disallowNewlineBeforeBlockStatements" : true,
     "excludeFiles": []
 }

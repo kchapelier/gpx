@@ -67,6 +67,10 @@ describe('GpxFileBuilder', function() {
             ]
         ).xml();
 
+        console.log(xml);
+
+        process.exit();
+
         expect(xml).to.conform('./test/schema/gpx1.1.xsd');
     });
 
