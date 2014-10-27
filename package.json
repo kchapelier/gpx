@@ -4,7 +4,7 @@
   "description": "Javascript library to write GPX files (WIP)",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/"
+    "test": "./node_modules/.bin/gulp verify"
   },
   "author": "Kevin Chapelier",
   "license": "MIT",
@@ -12,6 +12,7 @@
     "chai": "^1.9.2",
     "gulp": "^3.8.9",
     "gulp-jscs": "^1.2.1",
+    "gulp-mocha": "^1.1.1",
     "libxml-xsd": "^0.2.0",
     "mocha": "^1.21.5",
     "xml-parser": "^1.2.0"
