@@ -15,6 +15,7 @@
     "gulp-mocha": "^1.1.1",
     "libxml-xsd": "^0.2.0",
     "mocha": "^1.21.5",
+    "run-sequence": "^1.0.1",
     "xml-parser": "^1.2.0"
   },
   "private": true

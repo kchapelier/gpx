@@ -1,25 +1,29 @@
 var gulp = require('gulp'),
     jscs = require('gulp-jscs'),
-    mocha = require('gulp-mocha');
+    mocha = require('gulp-mocha'),
+    sequence = require('run-sequence');
 
-var getMochaTest = function(reporter) {
-    return function() {
-        return gulp
-            .src([ './test/*.js' ])
-            .pipe(mocha({ reporter: reporter }));
-    };
-};
+gulp.task('verify', function(callback) {
+    sequence(
+        'convention',
+        'test',
+        function(err) {
+            if(!err) {
+                callback.apply(null, arguments);
+            }
+        }
+    );
+});
 
-var getConventionTest = function() {
-    return function() {
-        return gulp
-            .src([ './lib/**' ])
-            .pipe(jscs());
-    };
-};
 
-gulp.task('verify', ['test-with-convention'], function() {});
+gulp.task('convention', function() {
+    return gulp
+        .src([ './lib/**' ])
+        .pipe(jscs());
+});
 
-gulp.task('convention', getConventionTest());
-gulp.task('test-with-convention', ['convention'], getMochaTest('base'));
-gulp.task('test', getMochaTest('list'));
+gulp.task('test', function() {
+    return gulp
+        .src([ './test/*.js' ])
+        .pipe(mocha({ reporter: 'spec' }));
+});
