@@ -12,6 +12,7 @@
     "chai": "^1.9.2",
     "gulp": "^3.8.9",
     "gulp-jscs": "^1.2.1",
+    "gulp-jshint": "^1.8.6",
     "gulp-mocha": "^1.1.1",
     "libxml-xsd": "^0.2.0",
     "mocha": "^1.21.5",

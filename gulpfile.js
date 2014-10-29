@@ -1,11 +1,13 @@
 var gulp = require('gulp'),
+    jshint = require('gulp-jshint'),
     jscs = require('gulp-jscs'),
     mocha = require('gulp-mocha'),
     sequence = require('run-sequence');
 
 gulp.task('verify', function(callback) {
     sequence(
-        'convention',
+        'lint',
+        'codestyle',
         'test',
         function(err) {
             if(!err) {
@@ -15,8 +17,14 @@ gulp.task('verify', function(callback) {
     );
 });
 
+gulp.task('lint', function() {
+    return gulp
+        .src([ './lib/**' ])
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('default'));
+});
 
-gulp.task('convention', function() {
+gulp.task('codestyle', function() {
     return gulp
         .src([ './lib/**' ])
         .pipe(jscs());
