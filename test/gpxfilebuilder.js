@@ -22,18 +22,22 @@ describe('GpxFileBuilder', function() {
     });
 
     it('should produce a valid gpx for a file with a few waypoints', function() {
-        var xml = (new GpxFileBuilder()).addWayPoint({
-            latitude : 50,
-            longitude : 4.898
-        }).addWayPoint({
-            latitude : 50,
-            longitude : 4.898,
-            name : 'waypoint alpha'
-        }).addWayPoint({
-            latitude : 50,
-            longitude : 4.898,
-            elevation : 1.03
-        }).xml();
+        var xml = (new GpxFileBuilder()).addWayPoints([
+            {
+                latitude : 50,
+                longitude : 4.898
+            },
+            {
+                latitude : 50,
+                longitude : 4.898,
+                name : 'waypoint alpha'
+            },
+            {
+                latitude : 50,
+                longitude : 4.898,
+                elevation : 1.03
+            }
+        ]).xml();
 
         expect(xml).to.conform('./test/schema/gpx1.1.xsd');
     });
@@ -138,17 +142,20 @@ describe('GpxFileBuilder', function() {
         var xml = builder.setFileInfo({
                 creator : 'GpxFileBuilder',
                 name : 'test file'
-            }).addWayPoint({
-                latitude : 50,
-                longitude : 4.898,
-                name : 'waypoint alpha',
-                elevation : 1.03
-            }).addWayPoint({
-                latitude : 49.4985,
-                longitude : 4.8939,
-                name : 'waypoint beta',
-                elevation : 1
-            }).addRoute(
+            }).addWayPoints([
+                {
+                    latitude : 50,
+                    longitude : 4.898,
+                    name : 'waypoint alpha',
+                    elevation : 1.03
+                },
+                {
+                    latitude : 49.4985,
+                    longitude : 4.8939,
+                    name : 'waypoint beta',
+                    elevation : 1
+                }
+            ]).addRoute(
                 {
                     name : 'test route'
                 },
