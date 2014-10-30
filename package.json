@@ -14,6 +14,8 @@
     "gulp-jscs": "^1.2.1",
     "gulp-jshint": "^1.8.6",
     "gulp-mocha": "^1.1.1",
+    "gulp-plato": "^1.0.1",
+    "jshint-stylish": "^1.0.0",
     "libxml-xsd": "^0.2.0",
     "mocha": "^1.21.5",
     "run-sequence": "^1.0.1",

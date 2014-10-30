@@ -1,8 +1,26 @@
-var gulp = require('gulp'),
+var fs = require('fs'),
+    gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     jscs = require('gulp-jscs'),
     mocha = require('gulp-mocha'),
-    sequence = require('run-sequence');
+    plato = require('gulp-plato'),
+    sequence = require('run-sequence'),
+    stylish = require('jshint-stylish');
+
+gulp.task('report', function() {
+    var jshintOptions = JSON.parse(fs.readFileSync('./.jshintrc'));
+
+    return gulp
+        .src([ './lib/**' ])
+        .pipe(plato('report', {
+            jshint: {
+                options: jshintOptions
+            },
+            complexity: {
+                trycatch: true
+            }
+        }));
+});
 
 gulp.task('verify', function(callback) {
     sequence(
@@ -21,7 +39,7 @@ gulp.task('lint', function() {
     return gulp
         .src([ './lib/**' ])
         .pipe(jshint('.jshintrc'))
-        .pipe(jshint.reporter('default'));
+        .pipe(jshint.reporter(stylish));
 });
 
 gulp.task('codestyle', function() {
